@@ -3,21 +3,19 @@
 
 #include <string>
 #include <vector>
+
 class User {
    private:
-      std::string userID;
-      std::string name;
-      std::string email;
-      std::vector<std::string> issuedBooksID;
+      std::string username;
+      std::string password;
    public:
-   
    // Constructor
       User();
-      User(std::string, std::string, std::string,std::vector<std::string>);
-   // Methods
-      std::vector<std::string> getUserInfo();
-      void displayUserInfo();
+      User(std::string,std::string);
 
+   // Methods
+   
+      
    };
 
 

@@ -21,6 +21,9 @@ class Book{
    // Methods
       std::vector<std::string> getBookInfo();
       void displayBookInfo();
+      bool isAvailable();
+      void borrowBook();
+      void returnBook();
 
 };  
 
