@@ -1,24 +1,33 @@
 #ifndef LIBRARY_H
 #define LIBRARY_H
 
-#include "./user/user.h"
-#include "./book/book.h"
+#include "../book/book.h"
 #include "../member/member.h"
 
+#include <fstream>
+
+#define MEMBERS_DATA "../data/members.txt"
+#define BOOKS_DATA "../data/books.txt"
 class Library {
    private:
-      std::vector<User*> users;
-      std::vector<Book*> books;
+      std::vector<Member*> members_vt;
+      std::vector<Book*> books_vt;
    public:
-
+      Library();
+      Library(std::vector<Member*>, std::vector<Book*>);
 
    // Methods
+      // File Handling
       int loadFromFile();  // load user and book
       int saveToFile();
-      Book searchBookByTitle(std::string);
-      Book searchBookByAuthor(std::string);
+
+      Book* searchBookByTitle(std::string);
+      Book* searchBookByAuthor(std::string);
+      
       Member findUserByID(std::string);
 
+      int addBook(Book*);
+      int addMember(Member*);
 };
 
 

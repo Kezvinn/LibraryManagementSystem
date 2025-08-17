@@ -3,6 +3,10 @@
 
 #include "../user/user.h"
 #include "../book/book.h"
+#include "../library/library.h"
+#include "../share_fn/share_fn.h"
+
+#include <iostream>
 
 class Admin : public User {
    private:
@@ -16,10 +20,10 @@ class Admin : public User {
       void removeUser();
       void viewAllUsers();
 
-      void addBook();
-      void removeBook();
-      void editBookInfo();
-      void viewAllBooks();
+      int addBook(Library&);
+      int removeBook(Library&);
+      void editBookInfo(Library&);
+      void viewAllBooks(Library&);
 
 
 };

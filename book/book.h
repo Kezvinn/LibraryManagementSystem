@@ -3,29 +3,29 @@
 
 #include <string>
 #include <vector>
+#include <iostream>
+#include <iomanip>
 
-class Book{
+class Book { 
    private:
       std::string bookID;
       std::string title;
       std::string author;
       std::string publisher;
-      int total__copies;
+      int total_copies;
       int available_copies;
 
    public:
    // Constructor
       Book();
-      Book(std::string, std::string,std::string, std::string, int, int);
+      Book(std::string, std::string, std::string, std::string, int, int);
 
    // Methods
       std::vector<std::string> getBookInfo();
-      void displayBookInfo();
+      void displayBookInfo(char);      // v-> vertical h-> horizontal
       bool isAvailable();
       void borrowBook();
       void returnBook();
-
 };  
-
 
 #endif

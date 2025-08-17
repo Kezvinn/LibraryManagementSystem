@@ -1,0 +1,3 @@
+B001|The Great Gastby|F.Scott Fitzgerald|Scribner's|10|8
+B002|1984|George Orwell|Secker & Warburg|20|19
+B003|The Catcher in the Rye|J. D. Salinger|Little,Brown and Company|15|13
