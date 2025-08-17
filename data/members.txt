@@ -1,0 +1,3 @@
+U001|Nhat Nguyen|nnnguyen231@dummy.com|B001 B002 B003
+U002|Andre Bui|andreb960@yahoo.com|B001 B003
+U003|David Tran|davidt392@dummy.com|B003
