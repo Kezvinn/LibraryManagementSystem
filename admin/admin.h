@@ -24,6 +24,10 @@ class Admin : public User {
       int removeBook(Library&);
       void editBookInfo(Library&);
       void viewAllBooks(Library&);
+      
+      int logout();
+      bool login();
+
 
 
 };

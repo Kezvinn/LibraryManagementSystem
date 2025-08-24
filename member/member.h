@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <iostream>
 
 #include "../user/user.h"
 
@@ -29,6 +30,8 @@ class Member : public User {
       void borrowBook();
       void returnBook();
    
+      int logout();
+      bool login();
    };
 
 

@@ -59,10 +59,32 @@ int Admin::removeBook(Library &lib){
    std::getline(std::cin, bookID);
 
    // Call the library's removeBook method
-   if (lib.removeBook(bookID)) {
-      std::cout << "Book removed successfully!" << std::endl;
-   } else {
-      std::cout << "Book not found!" << std::endl;
-   }
+   // if (lib.removeBook(bookID)) {
+   //    std::cout << "Book removed successfully!" << std::endl;
+   // } else {
+   //    std::cout << "Book not found!" << std::endl;
+   // }
    return 0;
+}
+
+bool Admin::login(){
+   std::string uname, pwd;
+   std::cout << "+" << std::string(30, '-') << "+\n";
+   std::cout << "\tAdmin Login\t";
+   std::cout << "+" << std::string(30, '-') << "+\n";
+
+   std::cout << "Enter Username: ";
+   std::getline(std::cin, uname);
+
+   std::cout << "Enter Password: ";
+   std::getline(std::cin, pwd);
+
+   if (uname == this->getUsername() && pwd == this->getPassword()) {
+      std::cout << "Login successful!\n";
+      return true; // Successful login
+   } else {
+      std::cout << "Invalid username or password.\n";
+      return false; // Failed login
+   }
+   return false;
 }

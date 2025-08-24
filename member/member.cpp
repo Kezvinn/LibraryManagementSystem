@@ -31,3 +31,23 @@ std::vector<std::string> Member::getUserInfo(){
 std::vector<std::string> Member::getIssuedBookIDs(){
    return this->issuedBooksID;
 }
+
+bool Member::login(){
+   std::string username, password;
+   std::cout << "+" << std::string(30, '-') << "+\n";
+   std::cout << "\tMember Login\t";
+   std::cout << "+" << std::string(30, '-') << "+\n";
+
+   std::cout << "Enter Username: ";
+   std::getline(std::cin, username);
+   std::cout << "Enter Password: ";
+   std::getline(std::cin, password);
+
+   if (username == this->getUsername() && password == this->getPassword()){
+      std::cout << "Login successful!\n";
+      return true;
+   } else {
+      std::cout << "Login failed! Incorrect username or password.\n";
+      return false;
+   }
+}

@@ -33,23 +33,24 @@ int getInputInRange(int min, int max){
    }
 }
 
-void mainMenu() {
+void mainMenu(Library& lib, Admin *ad, Member *mem) {
    while (true){
       std::cout << "+" << std::string(30, '-') << "+" << std::endl;
       std::cout << "|" << "Main Menu" << std::string(30 - 10, ' ') << "|" << std::endl;
       std::cout << "+" << std::string(30, '-') << "+" << std::endl;
-      std::cout << "1. Member Login" << std::endl;
-      std::cout << "2. Admin Login" << std::endl;
+      std::cout << "Login as:\n";
+      std::cout << "1. Member." << std::endl;
+      std::cout << "2. Admin." << std::endl;
       std::cout << "3. Exit" << std::endl;
 
       int choice = getInputInRange(1,3);
 
       switch (choice) {
          case 1:
-            memberMenu(Library &lib);
+            memberMenu(mem, lib);
             break;
          case 2:
-            adminMenu();
+            adminMenu(ad, lib);
             break;
          case 3:
             std::cout << "+" << std::string(30,'-') << "+"; 
@@ -61,15 +62,103 @@ void mainMenu() {
       }
    }
 }
-void memberMenu(Library &lib){
+void memberMenu(Member *mem, Library &lib){
+   // login first
+   int loginStatus = mem->login();
+   if (loginStatus == true) {
+      while (true) {
+         std::cout << "+" << std::string(30, '-') << "+" << std::endl;
+         std::cout << "|" << "Member Menu" << std::string(30 - 12, ' ') << "|" << std::endl;
+         std::cout << "+" << std::string(30, '-') << "+" << std::endl;
+         std::cout << "1. View User Info\n";
+         std::cout << "2. View Issued Books\n";
+         std::cout << "3. Borrow Book\n";
+         std::cout << "4. Return Book\n";
+         std::cout << "5. Logout\n";
 
+         int choice = getInputInRange(1, 5);
+
+         switch (choice) {
+            case 1:
+               mem->displayUserInfo();
+               break;
+            case 2:
+               mem->displayIssuedBookIDs();
+               break;
+            case 3:
+               mem->borrowBook();
+               break;
+            case 4:
+               mem->returnBook();
+               break;
+            case 5:
+               mem->logout();
+               return; // Exit member menu
+            default:
+               break;
+         }
+      }
+
+   } else {
+      std::cout << "Login failed. Please try again.\n";
+   }
 }
 void adminMenu(Admin *ad, Library &lib){
+   // login first
+   bool loginStatus = ad->login();
+   if (loginStatus == true) {
+      while (true) {
+         std::cout << "+" << std::string(30, '-') << "+" << std::endl;
+         std::cout << "|" << "Admin Menu" << std::string(30 - 11, ' ') << "|" << std::endl;
+         std::cout << "+" << std::string(30, '-') << "+" << std::endl;
+         std::cout << "1. Add User\n";
+         std::cout << "2. Remove User\n";
+         std::cout << "3. View All Users\n";
+         std::cout << "4. Add Book\n";
+         std::cout << "5. Remove Book\n";
+         std::cout << "6. Edit Book Info\n";
+         std::cout << "7. View All Books\n";
+         std::cout << "8. Logout\n";
 
+         int choice = getInputInRange(1, 8);
+
+         switch (choice) {
+            case 1:
+               ad->addUser();
+               break;
+            case 2:
+               ad->removeUser();
+               break;
+            case 3:
+               ad->viewAllUsers();
+               break;
+            case 4:
+               ad->addBook(lib);
+               break;
+            case 5:
+               ad->removeBook(lib);
+               break;
+            case 6:
+               ad->editBookInfo(lib);
+               break;
+            case 7:
+               ad->viewAllBooks(lib);
+               break;
+            case 8:
+               ad->logout();
+               return; // Exit admin menu
+            default:
+               break;
+         }
+      }   
+   }
+   else {
+      std::cout << "Login failed. Please try again.\n";
+   }
 }
 
-// Regex functions
 
+// Regex functions
 bool isValidName(const std::string &input){
    std::regex pattern(R"(^[A-Za-z0-9\s'.,:-]+$)");
    return std::regex_match(input, pattern);
