@@ -52,3 +52,25 @@ void Book::returnBook(){
    this->available_copies++;
    std::cout << "Book returned successfully!" << std::endl;
 }
+
+// Setter
+int Book::setTitle(std::string title){
+   this->title = title;
+   return 0;
+}
+int Book::setAuthor(std::string author){
+   this->author = author;
+   return 0;
+}
+int Book::setPublisher(std::string publisher){
+   this->publisher = publisher;
+   return 0;
+}
+int Book::setTotalCopies(int total_copies){
+   this->total_copies = total_copies;
+   return 0;
+}
+int Book::setAvailableCopies(int available_copies){
+   this->available_copies = available_copies;
+   return 0;
+}

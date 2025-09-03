@@ -58,12 +58,12 @@ int Admin::removeBook(Library &lib){
    std::cout << "Enter Book ID to remove: ";
    std::getline(std::cin, bookID);
 
-   // Call the library's removeBook method
-   // if (lib.removeBook(bookID)) {
-   //    std::cout << "Book removed successfully!" << std::endl;
-   // } else {
-   //    std::cout << "Book not found!" << std::endl;
-   // }
+   //Call the library's removeBook method
+   if (lib.removeBook(bookID)) {
+      std::cout << "Book removed successfully!" << std::endl;
+   } else {
+      std::cout << "Book not found!" << std::endl;
+   }
    return 0;
 }
 
@@ -87,4 +87,97 @@ bool Admin::login(){
       return false; // Failed login
    }
    return false;
+}
+
+int Admin::addMember(Library &lib){
+   std::cout << "+" << std::string(30, '-') << "+\n";
+   std::cout << "\tAdd Member\t";
+   std::cout << "+" << std::string(30, '-') << "+\n";
+   std::string name, email, phone, address;
+
+   std::cout << "Enter Name: ";
+   std::getline(std::cin, name);
+   std::cout << "Enter Email: ";
+   std::getline(std::cin, email);
+   std::cout << "Enter Phone: ";
+   std::getline(std::cin, phone);
+   std::cout << "Enter Address: ";
+   std::getline(std::cin, address);
+
+   Member *newMember = new Member(name, email, phone, address);
+   // Add the new member to the library (assuming you have a Library instance)
+   lib.addMember(newMember);
+   return 0;
+}
+int Admin::removeMember(Library &lib){
+   std::cout << "+" << std::string(30, '-') << "+\n";
+   std::cout << "\tRemove Member\t";
+   std::cout << "+" << std::string(30, '-') << "+\n";
+   std::string userID;
+
+   std::cout << "Enter User ID to remove: ";
+   std::getline(std::cin, userID);
+
+   // Call the library's removeMember method
+   if (lib.removeMember(userID)) {
+      std::cout << "Member removed successfully!" << std::endl;
+   } else {
+      std::cout << "Member not found!" << std::endl;
+   }
+   return 0;
+}
+int Admin::viewAllMembers(Library &lib){
+   std::cout << "+" << std::string(50, '-') << "+\n";
+   std::cout << "\tAll Members\t";
+   std::cout << "+" << std::string(50, '-') << "+\n";
+
+   for (const auto& member : lib.getMembers()) {
+      member->displayMemberInfo();
+      std::cout << std::string(50, '-') << "\n";
+   }
+   return 0;
+}
+int Admin::viewAllBooks(Library &lib){
+   std::cout << "+" << std::string(30, '-') << "+\n";
+   std::cout << "\tAll Books\t";
+   std::cout << "+" << std::string(30, '-') << "+\n";
+   int i = 0;
+   for (const auto& book : lib.getBooks()) {
+      std::cout << i << ". ";
+      book->displayBookInfo('h');
+      i++;
+      std::cout << std::string(30, '-') << "\n";
+   }
+   return 0;
+}
+
+int Admin::editBookInfo(Library &lib){
+   std::cout << "+" << std::string(30,'-') << "+\n";
+   std::cout << "\tEdit Book Info\t";
+   std::cout << "+" << std::string(30,'-') << "+\n";
+
+   // Retrieve all the books from lib
+   std::vector<Book*> books = lib.getBooks();
+   int i = 0;
+   for (auto bk : books){
+      std::cout << i << ".\t";
+      bk->displayBookInfo('h');
+      i++;
+   }
+   std::cout << "Choose book to edit: ";
+   int book_choice = getInputInRange(0, i-1);
+
+   Book* book_to_edit = books[book_choice];
+   std::cout << "1. Edit Book Title.\n";
+   std::cout << "2. Edit Book Author.\n";
+   std::cout << "3. Edit Book Publisher.\n";
+   std::cout << "4. Edit Total Copies.\n";
+   std::cout << "5. Edit Available Copies.\n";
+   std::cout << "Choose an option to edit: ";
+
+   int edit_choice = getInputInRange(1, 5);
+
+
+   return 0;
+
 }

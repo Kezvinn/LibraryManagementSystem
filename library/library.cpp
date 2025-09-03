@@ -4,6 +4,13 @@ Library::Library() {}
 Library::Library(std::vector<Member*> members_i, std::vector<Book*> books_i)
                : members_vt(members_i), books_vt(books_i) {}
 
+std::vector<Book*> Library::getBooks() const {
+   return books_vt;
+}
+std::vector<Member*> Library::getMembers() const {
+   return members_vt;
+}
+
 int Library::loadFromFile() {
 // Load Member
    std::ifstream file(MEMBERS_DATA, std::ios::in);
@@ -64,6 +71,31 @@ int Library::loadFromFile() {
 
    return 0;
 }
+Book* Library::searchBookByTitle(std::string title) {
+   auto it = std::find_if(books_vt.begin(), books_vt.end(),
+                        [&title](Book* book) { return book->getBookInfo()[1] == title; });
+   if (it != books_vt.end()) {
+      return *it; // Book found
+   }
+   return nullptr; // Book not found
+}
+Book* Library::searchBookByAuthor(std::string author) {
+   auto it = std::find_if(books_vt.begin(), books_vt.end(),
+                        [&author](Book* book) { return book->getBookInfo()[2] == author; });
+   if (it != books_vt.end()) {
+      return *it; // Book found
+   }
+   return nullptr; // Book not found
+}
+
+Member* Library::findUserByID(std::string userID) {
+   auto it = std::find_if(members_vt.begin(), members_vt.end(),
+                        [&userID](Member* member) { return member->getUserInfo()[0] == userID; });
+   if (it != members_vt.end()) {
+      return *it; // Member found
+   }
+   return nullptr; // Member not found
+}
 
 int Library::saveToFile(){
 // Save Members Info
@@ -97,4 +129,35 @@ int Library::saveToFile(){
    std::cout << "[INFO] Books saved successfully." << std::endl;
 
    return 0;
+}
+
+bool Library::addBook(Book* newBook) {
+   books_vt.push_back(newBook);
+   return true;
+}
+bool Library::addMember(Member* newMember) {
+   members_vt.push_back(newMember);
+   return true;
+}
+
+bool Library::removeBook(std::string bookID) {
+   auto it = std::find_if(books_vt.begin(), books_vt.end(),
+                        [&bookID](Book* book) { return book->getBookInfo()[0] == bookID; });
+   if (it != books_vt.end()) {
+      delete *it; // Free the memory allocated for the Book object
+      books_vt.erase(it);
+      return true; // Book found and removed
+   }
+   return false; // Book not found
+}
+
+bool Library::removeMember(std::string memberID) {
+   auto it = std::find_if(members_vt.begin(), members_vt.end(),
+                        [&memberID](Member* member) { return member->getUserInfo()[0] == memberID; });
+   if (it != members_vt.end()) {
+      delete *it; // Free the memory allocated for the Member object
+      members_vt.erase(it);
+      return true; // Member found and removed
+   }
+   return false; // Member not found
 }

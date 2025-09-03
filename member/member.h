@@ -22,7 +22,7 @@ class Member : public User {
       
    // Methods
       std::vector<std::string> getUserInfo();
-      void displayUserInfo();
+      void displayMemberInfo();
 
       std::vector<std::string> getIssuedBookIDs();
       void displayIssuedBookIDs();
@@ -30,7 +30,7 @@ class Member : public User {
       void borrowBook();
       void returnBook();
    
-      int logout();
+      // int logout();
       bool login();
    };
 

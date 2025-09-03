@@ -51,3 +51,30 @@ bool Member::login(){
       return false;
    }
 }
+void Member::displayIssuedBookIDs(){
+   std::cout << "Issued Book IDs:\n";
+   for (const auto& bookID : this->issuedBooksID){
+      std::cout << " - " << bookID << "\n";
+   }
+}
+void Member::displayMemberInfo(){
+   std::cout << "Member Information:\n";
+   std::cout << "User ID: " << this->userID << "\n";
+   std::cout << "Name: " << this->name << "\n";
+   std::cout << "Email: " << this->email << "\n";
+   std::cout << "Issued Books: ";
+   if (this->issuedBooksID.empty()) {
+      std::cout << "None\n";
+   } else {
+      for (const auto& bookID : this->issuedBooksID) {
+         std::cout << bookID << " ";
+      }
+      std::cout << "\n";
+   }
+}
+void Member::borrowBook(){
+  
+}
+void Member::returnBook(){
+   
+}

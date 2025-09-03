@@ -5,7 +5,8 @@
 #include "../member/member.h"
 
 #include <fstream>
-
+#include <vector>
+#include <algorithm>
 #define MEMBERS_DATA "../data/members.txt"
 #define BOOKS_DATA "../data/books.txt"
 class Library {
@@ -21,13 +22,19 @@ class Library {
       int loadFromFile();  // load user and book
       int saveToFile();
 
-      Book* searchBookByTitle(std::string);
-      Book* searchBookByAuthor(std::string);
-      
-      Member findUserByID(std::string);
+      std::vector<Member*> getMembers() const;
+      std::vector<Book*> getBooks() const;
 
-      int addBook(Book*);
-      int addMember(Member*);
+      Book* searchBookByTitle(std::string);  // Title 
+      Book* searchBookByAuthor(std::string); // Author
+      
+      Member* findUserByID(std::string);
+
+      bool addBook(Book*);
+      bool addMember(Member*);
+
+      bool removeBook(std::string); // Book ID
+      bool removeMember(std::string); // User ID
 };
 
 

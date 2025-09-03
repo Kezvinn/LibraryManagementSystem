@@ -19,7 +19,7 @@ void memberMenu(Member* mem, Library& lib);
 void adminMenu(Admin* ad, Library& lib);
 
 // regex function
-bool isValidInt(std::string&);
-bool isValidName(std::string&);
+bool isValidInt(const std::string &);
+bool isValidName(const std::string &input);
 
 #endif

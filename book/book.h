@@ -26,6 +26,13 @@ class Book {
       bool isAvailable();
       void borrowBook();
       void returnBook();
-};  
+   
+      // Setter
+      int setTitle(std::string);
+      int setAuthor(std::string);
+      int setPublisher(std::string);
+      int setTotalCopies(int);
+      int setAvailableCopies(int);
+};
 
 #endif

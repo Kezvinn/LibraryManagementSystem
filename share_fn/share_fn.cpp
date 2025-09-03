@@ -80,7 +80,7 @@ void memberMenu(Member *mem, Library &lib){
 
          switch (choice) {
             case 1:
-               mem->displayUserInfo();
+               mem->displayMemberInfo();
                break;
             case 2:
                mem->displayIssuedBookIDs();
@@ -92,7 +92,7 @@ void memberMenu(Member *mem, Library &lib){
                mem->returnBook();
                break;
             case 5:
-               mem->logout();
+               // mem->logout();
                return; // Exit member menu
             default:
                break;
@@ -124,13 +124,13 @@ void adminMenu(Admin *ad, Library &lib){
 
          switch (choice) {
             case 1:
-               ad->addUser();
+               ad->addMember(lib);
                break;
             case 2:
-               ad->removeUser();
+               ad->removeMember(lib);
                break;
             case 3:
-               ad->viewAllUsers();
+               ad->viewAllMembers(lib);
                break;
             case 4:
                ad->addBook(lib);
@@ -145,7 +145,7 @@ void adminMenu(Admin *ad, Library &lib){
                ad->viewAllBooks(lib);
                break;
             case 8:
-               ad->logout();
+               // ad->logout();
                return; // Exit admin menu
             default:
                break;

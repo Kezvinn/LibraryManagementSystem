@@ -16,20 +16,17 @@ class Admin : public User {
       Admin();
       Admin(std::string,std::string);
    // Methods
-      void addUser();
-      void removeUser();
-      void viewAllUsers();
+      int addMember(Library&);
+      int removeMember(Library&);
+      int viewAllMembers(Library&);
 
       int addBook(Library&);
       int removeBook(Library&);
-      void editBookInfo(Library&);
-      void viewAllBooks(Library&);
+      int editBookInfo(Library&);
+      int viewAllBooks(Library&);
       
-      int logout();
+      // int logout();
       bool login();
-
-
-
 };
 
 
