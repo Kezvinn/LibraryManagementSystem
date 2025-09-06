@@ -87,7 +87,14 @@ Book* Library::searchBookByAuthor(std::string author) {
    }
    return nullptr; // Book not found
 }
-
+Book* Library::findBookByID(std::string bookID){
+   auto it = std::find_if(books_vt.begin(), books_vt.end(),
+                        [&bookID](Book* book) { return book->getBookInfo()[0] == bookID; });
+   if (it != books_vt.end()) {
+      return *it; // Book found
+   }
+   return nullptr; // Book not found
+}
 Member* Library::findUserByID(std::string userID) {
    auto it = std::find_if(members_vt.begin(), members_vt.end(),
                         [&userID](Member* member) { return member->getUserInfo()[0] == userID; });

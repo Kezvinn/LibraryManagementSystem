@@ -1,14 +1,19 @@
 #ifndef LIBRARY_H
 #define LIBRARY_H
 
-#include "../book/book.h"
-#include "../member/member.h"
-
 #include <fstream>
 #include <vector>
 #include <algorithm>
-#define MEMBERS_DATA "../data/members.txt"
-#define BOOKS_DATA "../data/books.txt"
+
+#include "../book/book.h"
+#include "../member/member.h"
+
+#define MEMBERS_DATA "./data/members.txt"
+#define BOOKS_DATA "./data/books.txt"
+
+class Member;
+class Book;
+
 class Library {
    private:
       std::vector<Member*> members_vt;
@@ -27,6 +32,7 @@ class Library {
 
       Book* searchBookByTitle(std::string);  // Title 
       Book* searchBookByAuthor(std::string); // Author
+      Book* findBookByID(std::string);     // Book ID
       
       Member* findUserByID(std::string);
 

@@ -3,6 +3,8 @@
 
 int main(int argc, char const *argv[]) {
    Library lib;
+   lib.loadFromFile();
+   // library.login(admin) -> 1. admin 2. member 3. exit 
    Admin* ad = new Admin();
    Member* mem = new Member();
 

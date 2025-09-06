@@ -3,7 +3,7 @@ CXX = g++
 CXXFLAGS = -c
 
 # Object files
-OBJS = ./output/main.o ./output/member.o ./output/user.o ./output/admin.o ./output/share_fn.o ./output/book.o ./output/library.o
+OBJS = ./output/share_fn.o ./output/member.o ./output/user.o ./output/admin.o ./output/book.o ./output/library.o ./output/main.o
 
 # Final target
 all: $(OBJS)

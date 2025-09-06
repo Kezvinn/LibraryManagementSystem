@@ -1,7 +1,7 @@
-#include "admin.h"
-
-Admin::Admin(){}
-Admin::Admin(std::string adname="admin", std::string adpwd="admin123"):User(adname, adpwd){}
+#include "admin.h" 
+// Constructor
+Admin::Admin():User("admin","admin123"){}
+Admin::Admin(std::string adname, std::string adpwd):User(adname, adpwd){}
 
 int Admin::addBook(Library &lib){
    std::cout << "+" << std::string(50, '-') << "+\n";
@@ -69,9 +69,7 @@ int Admin::removeBook(Library &lib){
 
 bool Admin::login(){
    std::string uname, pwd;
-   std::cout << "+" << std::string(30, '-') << "+\n";
-   std::cout << "\tAdmin Login\t";
-   std::cout << "+" << std::string(30, '-') << "+\n";
+   printBoxCenter("Admin Login", 30);
 
    std::cout << "Enter Username: ";
    std::getline(std::cin, uname);
@@ -90,29 +88,41 @@ bool Admin::login(){
 }
 
 int Admin::addMember(Library &lib){
-   std::cout << "+" << std::string(30, '-') << "+\n";
-   std::cout << "\tAdd Member\t";
-   std::cout << "+" << std::string(30, '-') << "+\n";
-   std::string name, email, phone, address;
-
-   std::cout << "Enter Name: ";
-   std::getline(std::cin, name);
-   std::cout << "Enter Email: ";
-   std::getline(std::cin, email);
-   std::cout << "Enter Phone: ";
-   std::getline(std::cin, phone);
-   std::cout << "Enter Address: ";
-   std::getline(std::cin, address);
-
-   Member *newMember = new Member(name, email, phone, address);
+   printBoxCenter("Add Member",30);
+   std::string name, email, pwd;
+   // name
+   do {
+      std::cout << "Enter your name: ";
+      std::getline(std::cin, name);
+      if (!isValidName(name)) {
+         std::cout << "Invalid input! Please enter a valid name using letters and spaces only.\n";
+      }
+   } while (!isValidName(name));
+   // email
+   do {
+      std::cout << "Enter Email: ";
+      std::getline(std::cin, email);
+      if (!isValidEmail(email)) {
+         std::cout << "Invalid input! Please enter a valid Email format.\n";
+      }
+   } while (!isValidEmail(email));
+   // password
+   do {
+      std::cout << "Enter Password: ";
+      std::getline(std::cin, pwd);
+      if (!isValidPassword(pwd)) {
+         std::cout << "Invalid input! Password must be at least 8 characters long, "
+                      "include uppercase and lowercase letters, a digit, and a special character.\n";
+      }
+   } while (!isValidPassword(pwd));   
+   std::string newID = randID('M');
+   Member *newMember = new Member(newID, pwd, name, email);
    // Add the new member to the library (assuming you have a Library instance)
    lib.addMember(newMember);
    return 0;
 }
 int Admin::removeMember(Library &lib){
-   std::cout << "+" << std::string(30, '-') << "+\n";
-   std::cout << "\tRemove Member\t";
-   std::cout << "+" << std::string(30, '-') << "+\n";
+   printBoxCenter("Remove Member", 30);
    std::string userID;
 
    std::cout << "Enter User ID to remove: ";
@@ -127,9 +137,7 @@ int Admin::removeMember(Library &lib){
    return 0;
 }
 int Admin::viewAllMembers(Library &lib){
-   std::cout << "+" << std::string(50, '-') << "+\n";
-   std::cout << "\tAll Members\t";
-   std::cout << "+" << std::string(50, '-') << "+\n";
+   printBoxCenter("All Members", 30);
 
    for (const auto& member : lib.getMembers()) {
       member->displayMemberInfo();
@@ -138,23 +146,19 @@ int Admin::viewAllMembers(Library &lib){
    return 0;
 }
 int Admin::viewAllBooks(Library &lib){
-   std::cout << "+" << std::string(30, '-') << "+\n";
-   std::cout << "\tAll Books\t";
-   std::cout << "+" << std::string(30, '-') << "+\n";
+   printBoxCenter("All Books", 30);
    int i = 0;
    for (const auto& book : lib.getBooks()) {
       std::cout << i << ". ";
       book->displayBookInfo('h');
       i++;
-      std::cout << std::string(30, '-') << "\n";
+      // std::cout << std::string(30, '-') << "\n";
    }
    return 0;
 }
 
 int Admin::editBookInfo(Library &lib){
-   std::cout << "+" << std::string(30,'-') << "+\n";
-   std::cout << "\tEdit Book Info\t";
-   std::cout << "+" << std::string(30,'-') << "+\n";
+   printBoxCenter("Edit Book Info", 30);
 
    // Retrieve all the books from lib
    std::vector<Book*> books = lib.getBooks();
@@ -173,11 +177,31 @@ int Admin::editBookInfo(Library &lib){
    std::cout << "3. Edit Book Publisher.\n";
    std::cout << "4. Edit Total Copies.\n";
    std::cout << "5. Edit Available Copies.\n";
-   std::cout << "Choose an option to edit: ";
-
+   
    int edit_choice = getInputInRange(1, 5);
-
+   std::string new_value;
 
    return 0;
 
+}
+
+bool Admin::authenticate(Library& lib, Member &mem){
+   std::string username, password;
+   printBoxCenter("Member Login", 30);
+   std::cout << "Enter Username: ";
+   std::getline(std::cin, username);
+   std::cout << "Enter Password: ";
+   std::getline(std::cin, password);
+
+   for (const auto& member : lib.getMembers()) {
+      if (member->getUsername() == username && member->getPassword() == password) {
+         std::cout << "[INFO] Login successful!\n";
+         mem = *member;
+         return true;
+      }
+   }
+   std::cout << "[ERROR] Login failed! Incorrect username or password.\n";
+   std::cout << "username: " << username<< "\n";
+   std::cout << "password: " << password<< "\n";
+   return false;
 }

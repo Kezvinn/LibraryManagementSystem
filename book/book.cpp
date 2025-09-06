@@ -28,15 +28,15 @@ void Book::displayBookInfo(char format){
       
    } else if (format == 'h'){
       std::cout << std::left 
-                << std::setw(15) << "BookID:" << std::setw(20) << this->bookID 
-                << std::setw(20) << "Title:" << std::setw(20) << this->title 
-                << std::setw(20) << "Author:" << std::setw(20) << this->author 
-                << std::setw(20) << "Publisher:" << std::setw(20) << this->publisher 
-                << std::setw(20) << "Total Copies:" << std::setw(20) << this->total_copies 
-                << std::setw(20) << "Available Copies:" << this->available_copies 
+                << std::setw(15) << std::setw(20) << this->bookID 
+                << std::setw(20) << std::setw(20) << this->title 
+                << std::setw(20) << std::setw(20) << this->author 
+                << std::setw(20) << std::setw(20) << this->publisher 
+                << std::setw(20) << std::setw(20) << this->total_copies 
+                << std::setw(20) << this->available_copies 
                 << std::endl;
    }
-}
+}   
 bool Book::isAvailable(){
    return this->available_copies > 0;
 }
@@ -73,4 +73,23 @@ int Book::setTotalCopies(int total_copies){
 int Book::setAvailableCopies(int available_copies){
    this->available_copies = available_copies;
    return 0;
+}
+// Getter
+std::string Book::getBookID(){
+   return this->bookID;
+}
+std::string Book::getTitle(){
+   return this->title;
+}
+std::string Book::getAuthor(){
+   return this->author;
+}
+std::string Book::getPublisher(){
+   return this->publisher;
+}
+int Book::getTotalCopies(){
+   return this->total_copies;
+}
+int Book::getAvailableCopies(){
+   return this->available_copies;
 }

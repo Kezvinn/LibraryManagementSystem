@@ -9,17 +9,26 @@
 
 class Admin;
 class Library;
+class Member;
+
 // Support
 std::string randID(char);
 int getInputInRange(int, int);
 
 // Menu
 void mainMenu(Library& lib, Admin* ad, Member* mem);
-void memberMenu(Member* mem, Library& lib);
+void memberMenu(Member* mem, Library& lib, Admin* ad);
 void adminMenu(Admin* ad, Library& lib);
 
 // regex function
 bool isValidInt(const std::string &);
-bool isValidName(const std::string &input);
+bool isValidName(const std::string &);
+bool isValidEmail(const std::string &);
+bool isValidPassword(const std::string &);
+// bool isValidPhone(const std::string &);
+
+void printBoxCenter(std::string, int);
+void printBox(const std::vector<std::string>& titles, const std::vector<std::string>& lines, int width);
+bool returnPrompt();
 
 #endif

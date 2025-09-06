@@ -33,6 +33,14 @@ class Book {
       int setPublisher(std::string);
       int setTotalCopies(int);
       int setAvailableCopies(int);
+
+      // Getter
+      std::string getBookID();
+      std::string getTitle();
+      std::string getAuthor();
+      std::string getPublisher();
+      int getTotalCopies();
+      int getAvailableCopies();
 };
 
 #endif

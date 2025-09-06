@@ -5,7 +5,11 @@
 #include <vector>
 #include <iostream>
 
+#include "../library/library.h"
 #include "../user/user.h"
+#include "../share_fn/share_fn.h"
+
+class Library;
 
 class Member : public User {
    private:
@@ -27,8 +31,8 @@ class Member : public User {
       std::vector<std::string> getIssuedBookIDs();
       void displayIssuedBookIDs();
 
-      void borrowBook();
-      void returnBook();
+      void borrowBook(Library &lib);
+      void returnBook(Library &lib);
    
       // int logout();
       bool login();
