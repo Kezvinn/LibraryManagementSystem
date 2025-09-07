@@ -21,11 +21,10 @@ class Library {
    public:
       Library();
       Library(std::vector<Member*>, std::vector<Book*>);
-
    // Methods
       // File Handling
       int loadFromFile();  // load user and book
-      int saveToFile();
+      int saveToFile();    // save user and book
 
       std::vector<Member*> getMembers() const;
       std::vector<Book*> getBooks() const;
@@ -42,6 +41,5 @@ class Library {
       bool removeBook(std::string); // Book ID
       bool removeMember(std::string); // User ID
 };
-
 
 #endif

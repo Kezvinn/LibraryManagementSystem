@@ -3,7 +3,10 @@
 
 int main(int argc, char const *argv[]) {
    Library lib;
-   lib.loadFromFile();
+   if (lib.loadFromFile()){
+      std::cerr << "[ERROR] Failed to load data from file. Exiting program." << std::endl;
+      return -1;
+   }
    // library.login(admin) -> 1. admin 2. member 3. exit 
    Admin* ad = new Admin();
    Member* mem = new Member();
@@ -11,6 +14,6 @@ int main(int argc, char const *argv[]) {
    mainMenu(lib, ad, mem);
 
    delete ad;
-   delete mem;
+   delete mem;   
    return 0;
 }

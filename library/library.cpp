@@ -111,11 +111,14 @@ int Library::saveToFile(){
       std::cerr << "[ERROR] Failed to open member data file for writing." << std::endl;
       return -1;
    }
-   for (const auto& member : members_vt) {
-      std::vector<std::string> data = member->getUserInfo();
+   for (int i = 0; i < members_vt.size(); i++) {
+      std::vector<std::string> data = members_vt[i]->getUserInfo();
       file << data[0] << "|" << data[1] << "|"
            << data[2] << "|" << data[3] << "|"
-           << data[4] << "\n";
+           << data[4];
+      if (i != members_vt.size() - 1) {
+         file << "\n";
+      }
    }
    file.close();
    std::cout << "[INFO] Members saved successfully." << std::endl;
@@ -126,11 +129,14 @@ int Library::saveToFile(){
       std::cerr << "[ERROR] Failed to open book data file for writing." << std::endl;
       return -1;
    }
-   for (const auto& book : books_vt) {
-      std::vector<std::string> bookInfo = book->getBookInfo();
+   for (int i = 0; i < books_vt.size(); i++) {
+      std::vector<std::string> bookInfo = books_vt[i]->getBookInfo();
       file << bookInfo[0] << "|" << bookInfo[1] << "|"
            << bookInfo[2] << "|" << bookInfo[3] << "|"
-           << bookInfo[4] << "|" << bookInfo[5] << "\n";
+           << bookInfo[4] << "|" << bookInfo[5];
+      if(i != books_vt.size() - 1) {
+         file << "\n";
+      }
    }
    file.close();
    std::cout << "[INFO] Books saved successfully." << std::endl;

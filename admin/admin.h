@@ -9,7 +9,7 @@
 #include "../share_fn/share_fn.h"
 
 class Library;
-
+class Member;
 class Admin : public User {
    public:
    // Constructor

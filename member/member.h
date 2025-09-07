@@ -23,7 +23,6 @@ class Member : public User {
       Member();
       Member(std::string, std::string, std::string, std::string, std::vector<std::string>); // ->load from file
       Member(std::string, std::string, std::string, std::string); // -> new member
-      
    // Methods
       std::vector<std::string> getUserInfo();
       void displayMemberInfo();
@@ -34,8 +33,8 @@ class Member : public User {
       void borrowBook(Library &lib);
       void returnBook(Library &lib);
    
-      // int logout();
-      bool login();
+      // bool logout();
+      // bool login();
    };
 
 

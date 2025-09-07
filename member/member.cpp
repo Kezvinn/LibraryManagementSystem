@@ -22,8 +22,12 @@ std::vector<std::string> Member::getUserInfo(){
    userInfo.push_back(this->name);
    userInfo.push_back(this->email);
    std::string issuedBooksStr;
-   for (auto item : this->issuedBooksID){
-      issuedBooksStr += item + " ";
+   if (this->issuedBooksID.empty()) {
+      issuedBooksStr = "None";
+   } else {
+      for (auto item : this->issuedBooksID){
+         issuedBooksStr += item + " ";
+      }
    }
    userInfo.push_back(issuedBooksStr);
    

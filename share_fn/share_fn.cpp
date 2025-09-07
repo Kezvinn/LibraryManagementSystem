@@ -129,7 +129,8 @@ void mainMenu(Library& lib, Admin *ad, Member *mem) {
          case 2:
             adminMenu(ad, lib);
             break;
-         case 3:
+         case 3: 
+            lib.saveToFile();
             printBoxCenter("Goodbye", 30);
             return;
          default:
