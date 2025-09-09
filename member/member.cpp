@@ -14,7 +14,7 @@ Member::Member(std::string userID_i, std::string pwd_i,
                User(userID_i, pwd_i), userID(userID_i),
                name(name_i), email(email_i){}
 
-std::vector<std::string> Member::getUserInfo(){
+std::vector<std::string> Member::getMemberInfo(){
    std::vector<std::string> userInfo;
 
    userInfo.push_back(this->userID);
@@ -36,6 +36,15 @@ std::vector<std::string> Member::getUserInfo(){
 
 std::vector<std::string> Member::getIssuedBookIDs() {
    return this->issuedBooksID;
+}
+std::string Member::getUserID() {
+   return this->userID;
+}
+std::string Member::getName() {
+   return this->name;
+}
+std::string Member::getEmail() {
+   return this->email;
 }
 
 // bool Member::login(){
@@ -67,10 +76,10 @@ void Member::displayIssuedBookIDs(){
    }
 }
 void Member::displayMemberInfo(){
-   std::vector<std::string> title = {"UserID", "Password", "Name", "Email", "Issued Books"};
+   std::vector<std::string> title = {"UserID", "Password", "Name", "Email", "Issued Book IDs"};
    printBoxCenter("Member Information", 30);
 
-   std::vector<std::string> info = this->getUserInfo();
+   std::vector<std::string> info = this->getMemberInfo();
    printBox(title, info, 28);
    // if (this->issuedBooksID.empty()) {
    //    std::cout << "None\n";
@@ -101,16 +110,15 @@ void Member::borrowBook(Library &lib) {
       } else {
          std::cout << "Selected book is not available. Please choose another book.\n";
       }
-   }  
+   }
 }
 void Member::returnBook(Library &lib){
+   printBoxCenter("Return Book", 30);
    if (this->issuedBooksID.empty()) {
       std::cout << "No books to return.\n";
       return;
    }
-   return;
 
-   printBoxCenter("Return Book", 30);
    int i = 1;
    for (const auto& bookID : this->issuedBooksID) {
       std::cout << i << ". " << bookID << "\n";
@@ -123,8 +131,25 @@ void Member::returnBook(Library &lib){
    if (book) {
       book->returnBook();
       this->issuedBooksID.erase(this->issuedBooksID.begin() + (choice - 1));
-      std::cout << "Book returned successfully.\n";
+      std::cout << "[INFO] Book returned successfully.\n";
    } else {
-      std::cout << "Book not found in library.\n";
+      std::cout << "[ERROR] Book not found in library.\n";
    }
+}
+
+int Member::setIssueBooksIDs(std::vector<std::string> issuedBooks_i){
+   this->issuedBooksID = issuedBooks_i;
+   return 0;
+}
+
+bool Member::logout(Library &lib){
+   // Member *mem();
+   for (auto &member : lib.getMembers()) {
+      if (member->getUserID() == this->userID) {
+         member->setIssueBooksIDs(this->issuedBooksID);
+         break;
+      }
+   }
+   printBoxCenter("Logged Out", 30);
+   return true;
 }

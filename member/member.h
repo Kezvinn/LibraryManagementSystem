@@ -18,25 +18,28 @@ class Member : public User {
       std::string email;
       std::vector<std::string> issuedBooksID;
    public:
-   
    // Constructor
       Member();
       Member(std::string, std::string, std::string, std::string, std::vector<std::string>); // ->load from file
       Member(std::string, std::string, std::string, std::string); // -> new member
-   // Methods
-      std::vector<std::string> getUserInfo();
-      void displayMemberInfo();
-
+   
+   // Getters
+      std::vector<std::string> getMemberInfo();   // get all 
       std::vector<std::string> getIssuedBookIDs();
+      std::string getUserID();
+      std::string getName();
+      std::string getEmail();
+   
+   // Setters 
+      int setIssueBooksIDs(std::vector<std::string>);
+   
+   // Display
       void displayIssuedBookIDs();
-
+      void displayMemberInfo();
+   // Methods
       void borrowBook(Library &lib);
       void returnBook(Library &lib);
-   
-      // bool logout();
-      // bool login();
+      bool logout(Library &lib); // save current member infor into library data
    };
-
-
 
 #endif

@@ -21,20 +21,24 @@ class Library {
    public:
       Library();
       Library(std::vector<Member*>, std::vector<Book*>);
-   // Methods
-      // File Handling
+   
+   // File Handling
       int loadFromFile();  // load user and book
       int saveToFile();    // save user and book
-
+   
+   // Getter
       std::vector<Member*> getMembers() const;
       std::vector<Book*> getBooks() const;
-
+   
+   // Books Methods
       Book* searchBookByTitle(std::string);  // Title 
       Book* searchBookByAuthor(std::string); // Author
-      Book* findBookByID(std::string);     // Book ID
-      
+      Book* findBookByID(std::string);     // Book ID   
+   
+   // Member Methods
       Member* findUserByID(std::string);
-
+   
+      // Add & Remove
       bool addBook(Book*);
       bool addMember(Member*);
 

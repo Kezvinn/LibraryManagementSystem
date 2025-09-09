@@ -31,5 +31,4 @@ class Admin : public User {
       bool authenticate(Library&, Member&); // ID, Password -> use to verify login from Member
 };
 
-
 # endif

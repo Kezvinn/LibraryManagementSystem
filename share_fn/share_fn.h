@@ -20,15 +20,17 @@ void mainMenu(Library& lib, Admin* ad, Member* mem);
 void memberMenu(Member* mem, Library& lib, Admin* ad);
 void adminMenu(Admin* ad, Library& lib);
 
-// regex function
+// Regex function
 bool isValidInt(const std::string &);
 bool isValidName(const std::string &);
 bool isValidEmail(const std::string &);
 bool isValidPassword(const std::string &);
-// bool isValidPhone(const std::string &);
 
+// Display functions
 void printBoxCenter(std::string, int);
 void printBox(const std::vector<std::string>& titles, const std::vector<std::string>& lines, int width);
+
+// Prompt functions
 bool returnPrompt();
 
 #endif

@@ -34,8 +34,10 @@ int Library::loadFromFile() {
       std::istringstream bookIssuedStream(sub_str_vt[4]);
       std::string bookID;
       while(bookIssuedStream >> bookID) {
+         if (bookID == "None") break;
          issuedBooksID.push_back(bookID);
       }
+      
       Member *mem = new Member(sub_str_vt[0], sub_str_vt[1], 
                                sub_str_vt[2],sub_str_vt[3], 
                                issuedBooksID);
@@ -97,7 +99,7 @@ Book* Library::findBookByID(std::string bookID){
 }
 Member* Library::findUserByID(std::string userID) {
    auto it = std::find_if(members_vt.begin(), members_vt.end(),
-                        [&userID](Member* member) { return member->getUserInfo()[0] == userID; });
+                        [&userID](Member* member) { return member->getMemberInfo()[0] == userID; });
    if (it != members_vt.end()) {
       return *it; // Member found
    }
@@ -112,7 +114,7 @@ int Library::saveToFile(){
       return -1;
    }
    for (int i = 0; i < members_vt.size(); i++) {
-      std::vector<std::string> data = members_vt[i]->getUserInfo();
+      std::vector<std::string> data = members_vt[i]->getMemberInfo();
       file << data[0] << "|" << data[1] << "|"
            << data[2] << "|" << data[3] << "|"
            << data[4];
@@ -166,7 +168,7 @@ bool Library::removeBook(std::string bookID) {
 
 bool Library::removeMember(std::string memberID) {
    auto it = std::find_if(members_vt.begin(), members_vt.end(),
-                        [&memberID](Member* member) { return member->getUserInfo()[0] == memberID; });
+                        [&memberID](Member* member) { return member->getMemberInfo()[0] == memberID; });
    if (it != members_vt.end()) {
       delete *it; // Free the memory allocated for the Member object
       members_vt.erase(it);

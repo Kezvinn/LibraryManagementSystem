@@ -163,12 +163,14 @@ void memberMenu(Member *mem, Library &lib, Admin *ad){
                }               
             case 3:
                mem->borrowBook(lib);
-               break;
+               if (returnPrompt()){
+                  break;
+               }
             case 4:
                mem->returnBook(lib);
                break;
             case 5:
-               // mem->logout();
+               mem->logout(lib);
                return; // Exit member menu
             default:
                break;
@@ -176,6 +178,7 @@ void memberMenu(Member *mem, Library &lib, Admin *ad){
       }
 
    } else {
+      printBoxCenter("Login Failed", 30);
       // std::cout << "Login failed. Please try again.\n";
    }
 }
