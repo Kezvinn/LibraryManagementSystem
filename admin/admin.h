@@ -20,6 +20,7 @@ class Admin : public User {
       int addMember(Library&);
       int removeMember(Library&);
       int viewAllMembers(Library&);
+      // int editMemberInfo(Library&);
 
       int addBook(Library&);
       int removeBook(Library&);

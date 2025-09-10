@@ -16,6 +16,8 @@ class User {
    // Methods
       std::string getUsername();
       std::string getPassword();
+
+      int setPassword(std::string);
    };
 
 #endif

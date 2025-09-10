@@ -11,3 +11,7 @@ std::string User::getPassword(){
    return this->password;
 }
 
+int User::setPassword(std::string pwd_i){
+   this->password = pwd_i;
+   return 0;
+}

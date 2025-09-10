@@ -32,3 +32,5 @@ all: $(OBJS)
 
 clean: 
 	del /Q .\output\*.o main.exe
+run: all
+	./main.exe

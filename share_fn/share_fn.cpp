@@ -23,7 +23,7 @@ void printBox(const std::vector<std::string>& titles,
               const std::vector<std::string>& lines,
               int width) {
     if (titles.size() != lines.size()) {
-        std::cerr << "Error: titles and lines must have the same number of elements.\n";
+        std::cerr << "\033[31m [ERROR] titles and lines must have the same number of elements.\033[0m\n";
         return;
     }
     if (titles.empty() || width <= 0) return;
@@ -85,7 +85,6 @@ std::string randID(char type) {
    return type + std::to_string(number);
 }
 int getInputInRange(int min, int max){
-   // int value;
    std::string input;
    
    while (true) {
@@ -98,11 +97,11 @@ int getInputInRange(int min, int max){
          if (value >= min && value <= max) {
             return value;  // ✅ valid input
          } else {
-            std::cout << "Out of range. Please try again.\n";
+            std::cout << "\033[31m[ERROR] Out of range. Please try again.\033[0m\n";
             continue;
          }
       } else {
-         std::cout << "Invalid input. Please enter a number.\n";
+         std::cout << "\033[31m[ERROR] Invalid input. Please enter a number.\033[0m\n";
          std::cin.clear(); // clear error state
       }
       // discard bad input from buffer
@@ -142,34 +141,40 @@ void memberMenu(Member *mem, Library &lib, Admin *ad){
    if (ad->authenticate(lib, *mem) == true) {
       while (true) {
          printBoxCenter("Member Menu", 30);
-         std::cout << "1. View User Info\n";
-         std::cout << "2. View Issued Books\n";
-         std::cout << "3. Borrow Book\n";
-         std::cout << "4. Return Book\n";
-         std::cout << "5. Logout\n";
+         std::cout << "1. View Member Info\n";
+         std::cout << "2. Edit Member Info\n";
+         std::cout << "3. View Issued Books\n";
+         std::cout << "4. Borrow Book\n";
+         std::cout << "5. Return Book\n";
+         std::cout << "6. Logout\n";
 
-         int choice = getInputInRange(1, 5);
+         int choice = getInputInRange(1, 6);
 
          switch (choice) {
             case 1:
                mem->displayMemberInfo();
                if (returnPrompt()){
                   break;
-               } 
+               }
             case 2:
+               mem->editMemberInfo(lib);
+               if (returnPrompt()){
+                  break;
+               }
+            case 3:
                mem->displayIssuedBookIDs();
                if (returnPrompt()) {
                   break;
                }               
-            case 3:
+            case 4:
                mem->borrowBook(lib);
                if (returnPrompt()){
                   break;
                }
-            case 4:
+            case 5:
                mem->returnBook(lib);
                break;
-            case 5:
+            case 6:
                mem->logout(lib);
                return; // Exit member menu
             default:
@@ -177,10 +182,11 @@ void memberMenu(Member *mem, Library &lib, Admin *ad){
          }
       }
 
-   } else {
-      printBoxCenter("Login Failed", 30);
-      // std::cout << "Login failed. Please try again.\n";
-   }
+   } 
+   // else {
+   //    // printBoxCenter("Login Failed", 30);
+   //    // std::cout << "Login failed. Please try again.\n";
+   // }
 }
 void adminMenu(Admin *ad, Library &lib){
    // login first
@@ -188,41 +194,57 @@ void adminMenu(Admin *ad, Library &lib){
    if (loginStatus == true) {
       while (true) {
          printBoxCenter("Admin Menu", 30);
-         std::cout << "1. Add User\n";
-         std::cout << "2. Remove User\n";
-         std::cout << "3. View All Users\n";
-         std::cout << "4. Add Book\n";
-         std::cout << "5. Remove Book\n";
-         std::cout << "6. Edit Book Info\n";
-         std::cout << "7. View All Books\n";
-         std::cout << "8. Logout\n";
+         std::cout << "1. View All Members.\n";
+         std::cout << "2. Add Member.\n";
+         std::cout << "3. Remove Member.\n";
+         std::cout << "4. View All Books.\n";
+         std::cout << "5. Edit Book Info.\n";
+         std::cout << "6. Add Book.\n";
+         std::cout << "7. Remove Book.\n";
+         std::cout << "8. Logout.\n";
 
          int choice = getInputInRange(1, 8);
 
          switch (choice) {
-            case 1:
-               ad->addMember(lib);
-               break;
-            case 2:
-               ad->removeMember(lib);
-               break;
-            case 3:
+            case 1:  // View all members
                ad->viewAllMembers(lib);
-               break;
-            case 4:
-               ad->addBook(lib);
-               break;
-            case 5:
-               ad->removeBook(lib);
-               break;    
-            case 6:
-               ad->editBookInfo(lib);
-               break;
-            case 7:
+               if (returnPrompt()){
+                  break;
+               }
+            case 2:  // Add member
+               ad->addMember(lib);
+               if (returnPrompt()){
+                  break;
+               }
+            case 3: // Remove member
+               ad->removeMember(lib);
+               if (returnPrompt()){
+                  break;
+               }
+               
+            case 4: // View all books
                ad->viewAllBooks(lib);
-               break;
-            case 8:
-               // ad->logout();
+               if (returnPrompt()){
+                  break;
+               }   
+               
+            case 5:  // Edit book info
+               ad->editBookInfo(lib);
+               if(returnPrompt()){
+                  break;
+               }
+                              
+            case 6: // Add book
+               ad->addBook(lib);
+               if (returnPrompt()){
+                  break;
+               }
+            case 7: // Remove book
+               ad->removeBook(lib);
+               if (returnPrompt()) {
+                  break;
+               }
+            case 8: // Logout
                return; // Exit admin menu
             default:
                break;
@@ -230,7 +252,7 @@ void adminMenu(Admin *ad, Library &lib){
       }   
    }
    else {
-      std::cout << "Login failed. Please try again.\n";
+      std::cout << "\033[31m[ERROR] Login failed. Please try again.\033[0m\n";
    }
 }
 
@@ -242,7 +264,7 @@ bool isValidName(const std::string &input){
 }
 
 bool isValidInt(const std::string &input){
-   std::regex pattern(R"(^\d+$)");
+   std::regex pattern(R"(^[1-9]\d*$)");
    return std::regex_match(input, pattern);
 }
 
@@ -267,7 +289,78 @@ bool returnPrompt(){
          std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // discard bad input
          return true; // User wants to return
       } else {
-         std::cout << "Invalid input. Please enter 'y' or 'n'.\n";
+         std::cout << "\033[31m[ERROR] Invalid input. Please enter 'y' or 'n'.\033[0m\n";
       }
+   }
+}
+
+// Helper: split string into chunks of size 'width'
+std::vector<std::string> splitToChunks(const std::string& s, int width) {
+   std::vector<std::string> chunks;
+   for (size_t i = 0; i < s.size(); i += width) {
+      chunks.push_back(s.substr(i, width));
+   }
+   if (chunks.empty()) chunks.push_back(""); // handle empty
+   return chunks;
+}
+
+void printTable(const std::vector<std::string>& Titles, std::vector<std::vector<std::string>>& Data) {
+   int nCols = Titles.size();
+   for (const auto& row : Data) {
+      if ((int)row.size() != nCols) {
+         std::cerr << "\033[31m[ERROR] Each row in Data must have the same number of columns as Titles!\033[0m\n";
+         return;
+      }
+   }
+
+   // Compute column widths
+   std::vector<int> colWidths(nCols, 10); // default min width = 10
+   for (int c = 0; c < nCols; c++) {
+      colWidths[c] = std::max(colWidths[c], (int)Titles[c].size());
+      for (const auto& row : Data) {
+         int len = row[c].size();
+         if (len > colWidths[c]) colWidths[c] = len;
+      }
+   }
+
+   // Print horizontal line
+   auto printLine = [&]() {
+      std::cout << "+";
+      for (int c = 0; c < nCols; c++) {
+         std::cout << std::string(colWidths[c], '-') << "+";
+      }
+      std::cout << "\n";
+   };
+
+   // Print header
+   printLine();
+   std::cout << "|";
+   for (int c = 0; c < nCols; c++) {
+      std::cout << std::setw(colWidths[c]) << std::left << Titles[c] << "|";
+   }
+   std::cout << "\n";
+   printLine();
+
+   // Print data rows
+   for (const auto& row : Data) {
+      // Split each cell into chunks
+      std::vector<std::vector<std::string>> rowChunks(nCols);
+      size_t maxLines = 0;
+      for (int c = 0; c < nCols; c++) {
+         rowChunks[c] = splitToChunks(row[c], colWidths[c]);
+         if (rowChunks[c].size() > maxLines)
+               maxLines = rowChunks[c].size();
+      }
+
+      // Print wrapped row
+      for (size_t line = 0; line < maxLines; line++) {
+         std::cout << "|";
+         for (int c = 0; c < nCols; c++) {
+               std::string chunk = (line < rowChunks[c].size()) ? rowChunks[c][line] : "";
+               std::cout << std::setw(colWidths[c]) << std::left << chunk << "|";
+         }
+         std::cout << "\n";
+      }
+      printLine();
    }
 }

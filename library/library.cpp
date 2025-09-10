@@ -15,7 +15,7 @@ int Library::loadFromFile() {
 // Load Member
    std::ifstream file(MEMBERS_DATA, std::ios::in);
    if (!file.is_open()) {
-      std::cerr << "[ERROR] Failed to open member data file." << std::endl;
+      std::cerr << "\033[31m[ERROR] Failed to open member data file.\033[0m" << std::endl;
       return -1;
    }
    std::string data_line;
@@ -44,12 +44,12 @@ int Library::loadFromFile() {
       members_vt.push_back(mem);
    }
    file.close();
-   std::cout << "[INFO] Members loaded successfully." << std::endl;
+   std::cout << "\033[32m[INFO] Members loaded successfully.\033[0m" << std::endl;
 
 // Load Books
    file.open(BOOKS_DATA, std::ios::in);
    if (!file.is_open()) {
-      std::cerr << "[ERROR] Failed to open book data file." << std::endl;
+      std::cerr << "\033[31m[ERROR] Failed to open book data file.\033[0m" << std::endl;
       return -1;
    }
    data_line.clear();
@@ -69,7 +69,7 @@ int Library::loadFromFile() {
       books_vt.push_back(book);        
    }
    file.close();
-   std::cout << "[INFO] Books loaded successfully." << std::endl;
+   std::cout << "\033[32m[INFO] Books loaded successfully.\033[0m" << std::endl;
 
    return 0;
 }
@@ -110,7 +110,7 @@ int Library::saveToFile(){
 // Save Members Info
    std::ofstream file(MEMBERS_DATA, std::ios::out);
    if (!file.is_open()) {
-      std::cerr << "[ERROR] Failed to open member data file for writing." << std::endl;
+      std::cerr << "\033[31m[ERROR] Failed to open member data file for writing.\033[0m" << std::endl;
       return -1;
    }
    for (int i = 0; i < members_vt.size(); i++) {
@@ -123,12 +123,12 @@ int Library::saveToFile(){
       }
    }
    file.close();
-   std::cout << "[INFO] Members saved successfully." << std::endl;
+   std::cout << "\033[32m[INFO] Members saved successfully.\033[0m" << std::endl;
 
 // Save Books Info
    file.open(BOOKS_DATA, std::ios::out);
    if (!file.is_open()) {
-      std::cerr << "[ERROR] Failed to open book data file for writing." << std::endl;
+      std::cerr << "\033[31m[ERROR] Failed to open book data file for writing.\033[0m" << std::endl;
       return -1;
    }
    for (int i = 0; i < books_vt.size(); i++) {
@@ -141,7 +141,7 @@ int Library::saveToFile(){
       }
    }
    file.close();
-   std::cout << "[INFO] Books saved successfully." << std::endl;
+   std::cout << "\033[32m[INFO] Books saved successfully.\033[0m" << std::endl;
 
    return 0;
 }

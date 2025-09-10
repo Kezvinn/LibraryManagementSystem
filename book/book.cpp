@@ -43,9 +43,9 @@ bool Book::isAvailable(){
 void Book::borrowBook(){
    if (this->isAvailable()){
       this->available_copies--;
-      std::cout << "Book borrowed successfully!" << std::endl;
+      std::cout << "\033[32m[INFO] Book borrowed successfully!\033[0m" << std::endl;
    } else {
-      std::cout << "No copies available for borrowing." << std::endl;
+      std::cout << "\033[31m[ERROR] No copies available for borrowing.\033[0m" << std::endl;
    }
 }
 void Book::returnBook(){

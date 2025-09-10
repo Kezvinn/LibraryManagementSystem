@@ -29,6 +29,8 @@ bool isValidPassword(const std::string &);
 // Display functions
 void printBoxCenter(std::string, int);
 void printBox(const std::vector<std::string>& titles, const std::vector<std::string>& lines, int width);
+std::vector<std::string> splitToChunks(const std::string& s, int width);
+void printTable(const std::vector<std::string>& Titles, std::vector<std::vector<std::string>>& Data);
 
 // Prompt functions
 bool returnPrompt();

@@ -1,3 +1,4 @@
-B001|The Great Gastby|F.Scott Fitzgerald|Scribner's|10|5
+B001|The Great Gastby|F.Scott Fitzgerald|Scribner's|10|9
 B002|1984|George Orwell|Secker & Warburg|20|11
 B003|The Catcher in the Rye|J. D. Salinger|Little,Brown and Company|15|10
+B873|A Tale of Two Cities|Charles Dickens|Simon and Schuster|50|49
