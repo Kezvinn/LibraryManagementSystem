@@ -31,6 +31,7 @@ all: $(OBJS)
 	$(CXX) $(CXXFLAGS) ./library/library.cpp -o ./output/library.o
 
 clean: 
-	del /Q .\output\*.o main.exe
+	del /Q .\output\*.o 
+	del main.exe
 run: all
 	./main.exe
